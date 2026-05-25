@@ -9,11 +9,18 @@ export default function HRVAnalysisCenter({
 
   const { timeDomain, frequencyDomain, nonlinear, clinical } = hrvMetrics;
 
-  // Draw Poincaré Plot
   useEffect(() => {
     const canvas = poincareCanvasRef.current;
     if (!canvas) return;
 
+    const rect = canvas.getBoundingClientRect();
+    const targetW = Math.floor(rect.width);
+    const targetH = Math.floor(rect.height);
+    if (canvas.width !== targetW || canvas.height !== targetH) {
+      canvas.width = targetW;
+      canvas.height = targetH;
+    }
+    
     const ctx = canvas.getContext('2d');
     const width = canvas.width;
     const height = canvas.height;

@@ -51,6 +51,21 @@ export default function SignalProcessingLab({
     const fftCanvas = fftCanvasRef.current;
     
     if (!rawCanvas || !filtCanvas || !fftCanvas) return;
+
+    // Resize canvases dynamically to ensure 1:1 pixel rendering and crisp lines
+    const resizeCanvas = (canvas) => {
+      const rect = canvas.getBoundingClientRect();
+      const targetW = Math.floor(rect.width);
+      const targetH = Math.floor(rect.height);
+      if (canvas.width !== targetW || canvas.height !== targetH) {
+        canvas.width = targetW;
+        canvas.height = targetH;
+      }
+    };
+    
+    resizeCanvas(rawCanvas);
+    resizeCanvas(filtCanvas);
+    resizeCanvas(fftCanvas);
     
     const ctxRaw = rawCanvas.getContext('2d');
     const ctxFilt = filtCanvas.getContext('2d');

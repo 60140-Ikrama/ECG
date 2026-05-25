@@ -61,6 +61,15 @@ export default function LiveECGViewer({
     let animationId;
 
     const render = () => {
+      const rect = canvas.getBoundingClientRect();
+      const targetWidth = Math.floor(rect.width);
+      const targetHeight = Math.floor(rect.height);
+      
+      if (canvas.width !== targetWidth || canvas.height !== targetHeight) {
+        canvas.width = targetWidth;
+        canvas.height = targetHeight;
+      }
+
       if (isFrozen) {
         drawFrozen(ctx, canvas);
       } else {
